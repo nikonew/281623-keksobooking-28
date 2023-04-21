@@ -34,5 +34,5 @@ const getOffers = () =>
     createDataGeneration(pictureIndex + 1)
   );
 
-console.log(getOffers());
+
 export { getOffers };
