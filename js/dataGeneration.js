@@ -33,5 +33,6 @@ const getOffers = () =>
     createDataGeneration(pictureIndex + 1)
   );
 
+const offerContent = getOffers();
 
-export { getOffers };
+export { offerContent };
