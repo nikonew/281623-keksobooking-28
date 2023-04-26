@@ -11,7 +11,7 @@ const createDataGeneration = () => ({
   },
   offer: {
     title: getRandomArrayElement(TITLES),
-    address: `${LOCATIONS.MAX_LAT}, ${LOCATIONS.MAX_LNG}`,
+    adress: `${getRandomFloat(LOCATIONS.MIN_LAT, LOCATIONS.MAX_LAT, 5)}, ${getRandomFloat(LOCATIONS.MIN_LNG, LOCATIONS.MAX_LNG, 5)}`,
     price: getRandomInteger(MIN_PRICE, MAX_PRICE),
     type: getRandomArrayElement(TYPES),
     rooms: getRandomInteger(1, MAX_ROOMS),
