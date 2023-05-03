@@ -1,4 +1,4 @@
 import './data.js';
 import './util.js';
-import './dataGeneration.js';
+import './offerArray.js';
 import './template_offer.js';
