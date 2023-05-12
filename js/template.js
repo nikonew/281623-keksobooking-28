@@ -22,10 +22,12 @@ offerContent.slice(0,1).forEach((data) => {
   userOffer.querySelector('.popup__text--capacity').textContent = `${data.offer.rooms} комнаты для ${data.offer.guests} гостей`;
   userOffer.querySelector('.popup__text--time').textContent = `Заезд после ${data.offer.checkin}, выезд до${data.offer.checkout}`;
   userOffer.querySelector('.popup__features').alt = data.offer.features;
-  userOffer.querySelector('.popup__description').textContent = data.offer.description.length === 0 ? '' : data.offer.description;
+  const offerDescription = userOffer.querySelector('.popup__description').textContent = data.offer.description;
   userOffer.querySelector('.popup__photos').querySelector('.popup__photo').src = data.offer.photos;
   userOffer.querySelector('.popup__avatar').src = data.author.avatar.avatar.length === 0 ? 'img/avatars/default.png' : data.author.avatar.avatar;
-
+  if (data.offer.description === '') {
+    offerDescription.classList.add('hidden');
+  }
   offerFragment.append(userOffer);
 });
 
