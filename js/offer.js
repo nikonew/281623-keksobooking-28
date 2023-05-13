@@ -18,7 +18,7 @@ const createDataGeneration = () => ({
     guests: getRandomInteger(1, MAX_GUESTS),
     checkin: getRandomArrayElement(TIMES),
     checkout: getRandomArrayElement(TIMES),
-    features: getRandomArrayElement(FEATURES),
+    features: [getRandomArrayElement(FEATURES)],
     description: getRandomArrayElement(DESCRIPTIONS),
     photos: getRandomArrayElement(PHOTOS)
   },
