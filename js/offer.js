@@ -11,14 +11,14 @@ const createDataGeneration = () => ({
   },
   offer: {
     title: getRandomArrayElement(TITLES),
-    address: `${LOCATIONS.MAX_LAT}, ${LOCATIONS.MAX_LNG}`,
+    adress: `${getRandomFloat(LOCATIONS.MIN_LAT, LOCATIONS.MAX_LAT, 5)}, ${getRandomFloat(LOCATIONS.MIN_LNG, LOCATIONS.MAX_LNG, 5)}`,
     price: getRandomInteger(MIN_PRICE, MAX_PRICE),
     type: getRandomArrayElement(TYPES),
     rooms: getRandomInteger(1, MAX_ROOMS),
     guests: getRandomInteger(1, MAX_GUESTS),
     checkin: getRandomArrayElement(TIMES),
     checkout: getRandomArrayElement(TIMES),
-    features: getRandomArrayElement(FEATURES),
+    features: [getRandomArrayElement(FEATURES)],
     description: getRandomArrayElement(DESCRIPTIONS),
     photos: getRandomArrayElement(PHOTOS)
   },
@@ -33,5 +33,6 @@ const getOffers = () =>
     createDataGeneration(pictureIndex + 1)
   );
 
+const offerContent = getOffers();
 
-export { getOffers };
+export { offerContent };

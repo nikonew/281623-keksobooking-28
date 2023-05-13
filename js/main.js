@@ -1,3 +1,4 @@
-import './data.js';
-import './util.js';
-import './dataGeneration.js';
+import {offerContent} from './offer.js';
+import {renderOffers} from './template.js';
+
+renderOffers(offerContent.slice(0,1));
