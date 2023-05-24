@@ -14,4 +14,19 @@ function getRandomFloat(min, max, decimals) {
 const getRandomArrayElement = (array) =>
   array[getRandomInteger(0, array.length - 1)];
 
-export {getRandomInteger, getRandomFloat, getRandomArrayElement};
+const getCountGuestsError = (countGuestsArr) => {
+  if (countGuestsArr.length === 1 && countGuestsArr[0] === 1) {
+    return `Количество гостей должно быть ${ countGuestsArr[0] } человек`;
+  }
+  if (countGuestsArr.length === 1 && countGuestsArr[0] === 0) {
+    return 'Не подразумевает гостей';
+  }
+  return countGuestsArr.reduce((previousValue, currentValue, currentIndex) => {
+    const newValue = currentIndex !== countGuestsArr.length - 1 ?
+      `${ currentValue }, ` :
+      `или ${ currentValue } человека`;
+    return `${ previousValue }${ newValue }`;
+  }, 'Количество гостей должно быть');
+};
+
+export { getRandomInteger, getRandomFloat, getRandomArrayElement, getCountGuestsError };

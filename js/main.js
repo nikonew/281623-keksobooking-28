@@ -1,8 +1,8 @@
-import {offerContent} from './offer.js';
-import {renderOffers} from './template.js';
-import {switchOffForm, switchOnForm} from './form.js';
+import { switchOffForm, switchOnForm } from './form.js';
+import { offerContent } from './offer.js';
+import { renderOffers } from './template.js';
 
-renderOffers(offerContent.slice(0,1));
+renderOffers(offerContent.slice(0, 1));
 
 switchOffForm();
 switchOnForm();
