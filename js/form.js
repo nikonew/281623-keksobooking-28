@@ -13,6 +13,7 @@ const form = document.querySelector('.ad-form');
 const fieldTitle = form.querySelector('#title');
 const selectHousingType = form.querySelector('#type');
 const fieldPrice = form.querySelector('#price');
+const priceSlider = document.querySelector('#price-slider');
 const countRooms = form.querySelector('#room_number');
 const countGuests = form.querySelector('#capacity');
 const selectTimeIn = form.querySelector('#timein');
@@ -22,6 +23,16 @@ const formSlider = form.querySelector('.ad-form__slider');
 const mapFilters = document.querySelector('.map__filters');
 const mapFieldset = mapFilters.querySelectorAll('fieldset');
 
+const priceSliderOption = {
+  start: 1000,
+  connect: true,
+  range: {
+    'min': 0,
+    'max': 10000
+  },
+  step: 1,
+};
+
 const pristine = new Pristine(form, {
   classTo: 'ad-form__element',
   errorTextParent: 'ad-form__element',
@@ -30,7 +41,8 @@ const pristine = new Pristine(form, {
   errorTextClass: 'text-help'
 });
 const handlerHousingType = (event) => {
-  fieldPrice.placeholder = mapHousingTypeToMinPrice[event.target.value];
+  const toMinPrice = mapHousingTypeToMinPrice[event.target.value];
+  fieldPrice.placeholder = toMinPrice;
   pristine.validate(fieldPrice);
 };
 
@@ -41,6 +53,14 @@ const handlerCountRoomsChange = () => {
 const handlerTimeInChange = () => {
   pristine.validate(selectTimeOut);
 };
+
+const handlePriceSliderUpdate = (values, handle) => {
+  fieldPrice.value = values[handle].split('.')[0];
+  pristine.validate(fieldPrice);
+};
+
+noUiSlider.create(priceSlider, priceSliderOption);
+priceSlider.noUiSlider.on('update', handlePriceSliderUpdate);
 
 Pristine.setLocale('ru');
 Pristine.addMessages('ru', {
