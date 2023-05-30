@@ -21,7 +21,7 @@ const selectTimeOut = form.querySelector('#timeout');
 const formFieldset = form.querySelectorAll('fieldset');
 const formSlider = form.querySelector('.ad-form__slider');
 const mapFilters = document.querySelector('.map__filters');
-const mapFieldset = mapFilters.querySelectorAll('fieldset');
+const mapFieldsetFiltres = mapFilters.querySelectorAll('fieldset');
 
 const priceSliderOption = {
   start: 1000,
@@ -118,28 +118,34 @@ form.addEventListener('submit', (event) => {
   }
 });
 
-const switchOffForm = () => {
-  form.classList.add('ad-form--disabled');
-  formSlider.classList.add('ad-form__slider--disabled');
-  mapFilters.classList.add('map__filters--disabled');
-  formFieldset.forEach((fieldset) => {
-    fieldset.setAttribute('disabled', 'true');
-  });
-  mapFieldset.forEach((fieldset) => {
-    fieldset.setAttribute('disabled', 'true');
-  });
+const activateFiltres = (activate) => {
+  if (activate) {
+    mapFilters.classList.remove('map__filters--disabled');
+    mapFieldsetFiltres.forEach((fieldset) => {
+      fieldset.removeAttribute('disabled');
+    });
+  } else {
+    mapFilters.classList.add('map__filters--disabled');
+    mapFieldsetFiltres.forEach((fieldset) => {
+      fieldset.setAttribute('disabled', 'true');
+    });
+  }
 };
 
-const switchOnForm = () => {
-  form.classList.remove('ad-form--disabled');
-  formSlider.classList.remove('ad-form__slider--disabled');
-  mapFilters.classList.remove('map__filters--disabled');
-  formFieldset.forEach((fieldset) => {
-    fieldset.removeAttribute('disabled');
-  });
-  mapFieldset.forEach((fieldset) => {
-    fieldset.removeAttribute('disabled');
-  });
+const activateForm = (activate) => {
+  if (activate) {
+    form.classList.remove('ad-form--disabled');
+    formSlider.classList.remove('ad-form__slider--disabled');
+    formFieldset.forEach((fieldset) => {
+      fieldset.removeAttribute('disabled');
+    });
+  } else {
+    form.classList.add('ad-form--disabled');
+    formSlider.classList.add('ad-form__slider--disabled');
+    formFieldset.forEach((fieldset) => {
+      fieldset.setAttribute('disabled', 'true');
+    });
+  }
 };
 
-export { switchOffForm, switchOnForm };
+export { activateFiltres, activateForm };

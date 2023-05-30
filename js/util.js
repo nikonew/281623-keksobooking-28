@@ -1,29 +1,7 @@
-const getRandomInteger = (a, b) => {
-  const lower = Math.ceil(Math.min(a, b));
-  const upper = Math.floor(Math.max(a, b));
-  const result = Math.random() * (upper - lower + 1) + lower;
-  return Math.floor(result);
-};
+import { ALERT_SHOW_TIME } from './data.js';
 
-function getRandomFloat(min, max, decimals) {
-  const str = (Math.random() * (max - min) + min).toFixed(decimals);
+const alertContainer = document.querySelector('#alertContainer');
 
-  return parseFloat(str);
-}
-
-const getRandomArrayElement = (array) =>
-  array[getRandomInteger(0, array.length - 1)];
-
-export function shuffleTheArr(arr) {
-  let j, temp;
-  for (let i = arr.length - 1; i > 0; i--) {
-    j = Math.floor(Math.random() * (i + 1));
-    temp = arr[j];
-    arr[j] = arr[i];
-    arr[i] = temp;
-  }
-  return arr;
-}
 
 const getCountGuestsError = (countGuestsArr) => {
   if (countGuestsArr.length === 1 && countGuestsArr[0] === 1) {
@@ -40,4 +18,12 @@ const getCountGuestsError = (countGuestsArr) => {
   }, 'Количество гостей должно быть');
 };
 
-export { getRandomInteger, getRandomFloat, getRandomArrayElement, getCountGuestsError };
+const showAlert = (message) => {
+  alertContainer.classList.remove('hidden');
+  alertContainer.textContent = message;
+  setTimeout(() => {
+    alertContainer.classList.add('hidden');
+  }, ALERT_SHOW_TIME);
+};
+
+export { getCountGuestsError, showAlert };

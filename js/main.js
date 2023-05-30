@@ -1,8 +1,19 @@
-import { initMap } from './map.js';
-//import { offerContent } from './offer.js';
-// import { renderOffers } from './template.js';
-//
-// renderOffers(offerContent.slice(0, 1));
+import { getData } from './api.js';
+import { activateFiltres, activateForm } from './form.js';
+import { initMap, renderAdsOfferPins } from './map.js';
+import { showAlert } from './util.js';
 
+activateForm(false);
+activateFiltres(false);
 initMap();
 
+getData()
+  .then((ads) => {
+    renderAdsOfferPins(ads);
+    activateFiltres(true);
+  })
+  .catch(
+    (err) => {
+      showAlert(err.message);
+    }
+  );
