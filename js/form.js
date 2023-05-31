@@ -138,7 +138,7 @@ const handleSuccessMessageClick = () => {
   successContainer.removeEventListener('click', handleSuccessMessageClick);
 };
 
-const showSuccessMessage = (reason) => {
+const showSuccessMessage = () => {
   successContainer.classList.remove('hidden');
   document.addEventListener('keydown', handleSuccessMessageKeydown);
   successContainer.addEventListener('click', handleSuccessMessageClick);
