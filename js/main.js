@@ -1,4 +1,5 @@
 import { getData } from './api.js';
+import { resetFilters } from './filter.js';
 import { activateFiltres, activateForm } from './form.js';
 import { initMap, renderAdsOfferPins } from './map.js';
 import { showAlert } from './util.js';
@@ -17,3 +18,4 @@ getData()
       showAlert(err.message);
     }
   );
+resetFilters();

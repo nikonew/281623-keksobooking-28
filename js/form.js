@@ -1,4 +1,8 @@
+import { sendData } from './api.js';
 import { mapHousingTypeToMinPrice, VALIDATE_MESSAGE } from './data.js';
+import { resetFilters } from './filter.js';
+import { hidePopup, setDefaultCenter } from './map.js';
+import { isEscapeKey } from './util.js';
 import {
   validateCountGuests,
   validateMaxPrice,
@@ -8,6 +12,7 @@ import {
   validateTitleMaxLength,
   validateTitleMinLength
 } from './validate.js';
+
 
 const form = document.querySelector('.ad-form');
 const fieldTitle = form.querySelector('#title');
@@ -22,13 +27,17 @@ const formFieldset = form.querySelectorAll('fieldset');
 const formSlider = form.querySelector('.ad-form__slider');
 const mapFilters = document.querySelector('.map__filters');
 const mapFieldsetFiltres = mapFilters.querySelectorAll('fieldset');
+const resetButton = form.querySelector('.ad-form__reset');
+const errorContainer = document.querySelector('.error');
+const successContainer = document.querySelector('.success');
+const errorButton = errorContainer.querySelector('.error__button');
 
 const priceSliderOption = {
   start: 1000,
   connect: true,
   range: {
-    'min': 0,
-    'max': 10000
+    min: 0,
+    max: 100000
   },
   step: 1,
 };
@@ -110,11 +119,64 @@ selectHousingType.addEventListener('change', handlerHousingType);
 countRooms.addEventListener('change', handlerCountRoomsChange);
 selectTimeIn.addEventListener('change', handlerTimeInChange);
 
+export const resetForm = () => {
+  form.reset();
+  resetFilters();
+  hidePopup();
+  setDefaultCenter();
+};
+
+const handleSuccessMessageKeydown = (event) => {
+  if (isEscapeKey(event)) {
+    successContainer.classList.add('hidden');
+    document.removeEventListener('keydown', handleSuccessMessageKeydown);
+  }
+};
+
+const handleSuccessMessageClick = () => {
+  successContainer.classList.add('hidden');
+  successContainer.removeEventListener('click', handleSuccessMessageClick);
+};
+
+const showSuccessMessage = (reason) => {
+  successContainer.classList.remove('hidden');
+  document.addEventListener('keydown', handleSuccessMessageKeydown);
+  successContainer.addEventListener('click', handleSuccessMessageClick);
+};
+
+const handleErrorMessageKeydown = (event) => {
+  if (isEscapeKey(event)) {
+    errorContainer.classList.add('hidden');
+    document.removeEventListener('keydown', handleErrorMessageKeydown);
+  }
+};
+
+const handleErrorMessageClick = () => {
+  errorContainer.classList.add('hidden');
+  errorButton.removeEventListener('click', handleErrorMessageClick);
+};
+
+const showErrorMessage = () => {
+  errorContainer.classList.remove('hidden');
+  document.addEventListener('keydown', handleErrorMessageKeydown);
+  errorContainer.addEventListener('click', handleErrorMessageClick);
+};
+
+resetButton.addEventListener('click', (event) => {
+  event.preventDefault();
+  resetForm();
+});
+
 form.addEventListener('submit', (event) => {
   event.preventDefault();
   const isFormValid = pristine.validate();
   if (isFormValid) {
-    form.submit();
+    sendData(new FormData(form)).then(() => {
+      showSuccessMessage();
+      resetForm();
+    }).catch(() => {
+      showErrorMessage();
+    });
   }
 });
 

@@ -17,8 +17,8 @@ const tiles = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', 
 
 const myIcon = L.icon({
   iconUrl: '/img/main-pin.svg',
-  iconSize: [ 38, 95 ],
-  iconAnchor: [ 24, 48 ],
+  iconSize: [ 52, 52 ],
+  iconAnchor: [ 26, 52 ],
 });
 
 map.whenReady((ad) => {
@@ -47,8 +47,17 @@ export const renderAdsOfferPins = (ads) => {
   pins.forEach((pin) => pin.addTo(map));
 };
 
-export const initMap = () => {
+export const setDefaultCenter = () => {
   map.setView(defaultView.center, defaultView.zoom);
+  marker.setLatLng(defaultView.center);
+};
+
+export const hidePopup = () => {
+  map.closePopup();
+};
+
+export const initMap = () => {
+  setDefaultCenter();
   tiles.addTo(map);
   marker.addTo(map);
 };

@@ -2,6 +2,7 @@ import { ALERT_SHOW_TIME } from './data.js';
 
 const alertContainer = document.querySelector('#alertContainer');
 
+export const isEscapeKey = (event) => event.key === 'Escape';
 
 const getCountGuestsError = (countGuestsArr) => {
   if (countGuestsArr.length === 1 && countGuestsArr[0] === 1) {
