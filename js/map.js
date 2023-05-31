@@ -1,6 +1,5 @@
-import { switchOnForm } from './form.js';
-import { offerContent } from './offer.js';
-import { renderOffers } from './template.js';
+import { activateForm } from './form.js';
+import { getOffers } from './template.js';
 
 const adressIn = document.querySelector('#address');
 
@@ -18,10 +17,13 @@ const tiles = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', 
 
 const myIcon = L.icon({
   iconUrl: '/img/main-pin.svg',
-  iconSize: [ 38, 95 ],
-  iconAnchor: [ 24, 48 ],
+  iconSize: [ 52, 52 ],
+  iconAnchor: [ 26, 52 ],
 });
 
+map.whenReady((ad) => {
+  activateForm(ad);
+});
 const handlerDrag = (event) => {
   adressIn.value = `${ event.latlng.lat.toFixed(3) }, ${ event.latlng.lng.toFixed(3) }`;
 };
@@ -39,16 +41,23 @@ const iconOfferPin = L.icon({
   popupAnchor: [ 0, -20 ]
 });
 
-const adsOfferPin = offerContent.map((ad) => L.marker(ad.location, {icon: iconOfferPin})
-  .bindPopup(renderOffers(offerContent.slice(0, 1))));
+export const renderAdsOfferPins = (ads) => {
+  const pins = ads.map((ad) => L.marker(ad.location, {icon: iconOfferPin})
+    .bindPopup(getOffers(ad)));
+  pins.forEach((pin) => pin.addTo(map));
+};
 
-map.whenReady((ad) => {
-  switchOnForm(ad);
-});
+export const setDefaultCenter = () => {
+  map.setView(defaultView.center, defaultView.zoom);
+  marker.setLatLng(defaultView.center);
+};
+
+export const hidePopup = () => {
+  map.closePopup();
+};
 
 export const initMap = () => {
-  map.setView(defaultView.center, defaultView.zoom);
+  setDefaultCenter();
   tiles.addTo(map);
   marker.addTo(map);
-  adsOfferPin.forEach((pin) => pin.addTo(map));
 };
