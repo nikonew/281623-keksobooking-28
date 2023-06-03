@@ -104,7 +104,6 @@ const rerenderPinsAds = debounce(() => {
 }, DEBOUNCE_TIMEOUT);
 
 export const filterAds = (key, value) => {
-  console.log(key, value);
   activeFilters[key] = value;
   rerenderPinsAds();
 };
