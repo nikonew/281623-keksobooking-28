@@ -8,7 +8,6 @@ const types = {
 
 const offerTemplate = document.querySelector('#card').content.querySelector('.popup');
 
-// userOffer.querySelector('.popup__photos').querySelector('.popup__photo').src = data.offer.photos;
 export const getOffers = ({author, offer}) => {
   const userOffer = offerTemplate.cloneNode(true);
   userOffer.querySelector('.popup__title').textContent = offer.title;

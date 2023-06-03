@@ -1,7 +1,9 @@
 import { sendData } from './api.js';
-import { mapHousingTypeToMinPrice, VALIDATE_MESSAGE } from './data.js';
+import { MAP_HOUSE_TYPE_TO_MIN_PRICE, PRICE_SLIDER_OPTION, VALIDATE_MESSAGE } from './data.js';
 import { resetFilters } from './filter.js';
 import { hidePopup, setDefaultCenter } from './map.js';
+import { resetAvatar } from './upload-avatar.js';
+import { resetPhoto } from './upload-photo.js';
 import { isEscapeKey } from './util.js';
 import {
   validateCountGuests,
@@ -32,16 +34,6 @@ const errorContainer = document.querySelector('.error');
 const successContainer = document.querySelector('.success');
 const errorButton = errorContainer.querySelector('.error__button');
 
-const priceSliderOption = {
-  start: 1000,
-  connect: true,
-  range: {
-    min: 0,
-    max: 100000
-  },
-  step: 1,
-};
-
 const pristine = new Pristine(form, {
   classTo: 'ad-form__element',
   errorTextParent: 'ad-form__element',
@@ -49,8 +41,8 @@ const pristine = new Pristine(form, {
   errorTextTag: 'div',
   errorTextClass: 'text-help'
 });
-const handlerHousingType = (event) => {
-  const toMinPrice = mapHousingTypeToMinPrice[event.target.value];
+const handlerHousingType = (evt) => {
+  const toMinPrice = MAP_HOUSE_TYPE_TO_MIN_PRICE[evt.target.value];
   fieldPrice.placeholder = toMinPrice;
   pristine.validate(fieldPrice);
 };
@@ -68,7 +60,7 @@ const handlePriceSliderUpdate = (values, handle) => {
   pristine.validate(fieldPrice);
 };
 
-noUiSlider.create(priceSlider, priceSliderOption);
+noUiSlider.create(priceSlider, PRICE_SLIDER_OPTION);
 priceSlider.noUiSlider.on('update', handlePriceSliderUpdate);
 
 Pristine.setLocale('ru');
@@ -94,7 +86,7 @@ pristine.addValidator(
 pristine.addValidator(
   fieldPrice,
   (value) => validateMinPrice(value, selectHousingType.value),
-  () => VALIDATE_MESSAGE.PRICE.MIN(mapHousingTypeToMinPrice[selectHousingType.value]),
+  () => VALIDATE_MESSAGE.PRICE.MIN(MAP_HOUSE_TYPE_TO_MIN_PRICE[selectHousingType.value]),
 );
 
 pristine.addValidator(
@@ -119,15 +111,17 @@ selectHousingType.addEventListener('change', handlerHousingType);
 countRooms.addEventListener('change', handlerCountRoomsChange);
 selectTimeIn.addEventListener('change', handlerTimeInChange);
 
-export const resetForm = () => {
+const resetForm = () => {
   form.reset();
   resetFilters();
   hidePopup();
   setDefaultCenter();
+  resetAvatar();
+  resetPhoto();
 };
 
-const handleSuccessMessageKeydown = (event) => {
-  if (isEscapeKey(event)) {
+const handleSuccessMessageKeydown = (evt) => {
+  if (isEscapeKey(evt)) {
     successContainer.classList.add('hidden');
     document.removeEventListener('keydown', handleSuccessMessageKeydown);
   }
@@ -144,8 +138,8 @@ const showSuccessMessage = () => {
   successContainer.addEventListener('click', handleSuccessMessageClick);
 };
 
-const handleErrorMessageKeydown = (event) => {
-  if (isEscapeKey(event)) {
+const handleErrorMessageKeydown = (evt) => {
+  if (isEscapeKey(evt)) {
     errorContainer.classList.add('hidden');
     document.removeEventListener('keydown', handleErrorMessageKeydown);
   }
@@ -162,13 +156,13 @@ const showErrorMessage = () => {
   errorContainer.addEventListener('click', handleErrorMessageClick);
 };
 
-resetButton.addEventListener('click', (event) => {
-  event.preventDefault();
+resetButton.addEventListener('click', (evt) => {
+  evt.preventDefault();
   resetForm();
 });
 
-form.addEventListener('submit', (event) => {
-  event.preventDefault();
+form.addEventListener('submit', (evt) => {
+  evt.preventDefault();
   const isFormValid = pristine.validate();
   if (isFormValid) {
     sendData(new FormData(form)).then(() => {
