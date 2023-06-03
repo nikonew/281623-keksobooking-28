@@ -2,7 +2,7 @@ import { ALERT_SHOW_TIME } from './data.js';
 
 const alertContainer = document.querySelector('#alertContainer');
 
-export const isEscapeKey = (event) => event.key === 'Escape';
+const isEscapeKey = (event) => event.key === 'Escape';
 
 const getCountGuestsError = (countGuestsArr) => {
   if (countGuestsArr.length === 1 && countGuestsArr[0] === 1) {
@@ -27,4 +27,12 @@ const showAlert = (message) => {
   }, ALERT_SHOW_TIME);
 };
 
-export { getCountGuestsError, showAlert };
+const debounce = (callback, timeoutDelay) => {
+  let timeoutId;
+  return (...rest) => {
+    clearTimeout(timeoutId);
+    timeoutId = setTimeout(() => callback.apply(this, rest), timeoutDelay);
+  };
+};
+
+export { getCountGuestsError, showAlert, isEscapeKey, debounce };
