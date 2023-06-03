@@ -2,6 +2,8 @@ import { sendData } from './api.js';
 import { MAP_HOUSE_TYPE_TO_MIN_PRICE, PRICE_SLIDER_OPTION, VALIDATE_MESSAGE } from './data.js';
 import { resetFilters } from './filter.js';
 import { hidePopup, setDefaultCenter } from './map.js';
+import { resetAvatar } from './upload-avatar.js';
+import { resetPhoto } from './upload-photo.js';
 import { isEscapeKey } from './util.js';
 import {
   validateCountGuests,
@@ -114,6 +116,8 @@ const resetForm = () => {
   resetFilters();
   hidePopup();
   setDefaultCenter();
+  resetAvatar();
+  resetPhoto();
 };
 
 const handleSuccessMessageKeydown = (evt) => {
