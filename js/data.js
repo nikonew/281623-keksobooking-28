@@ -1,7 +1,10 @@
 import { getCountGuestsError } from './util.js';
 
-export const ALERT_SHOW_TIME = 5000;
+const ALERT_SHOW_TIME = 5000;
 
+const ADS_PIN_PANE = 'ads-pins';
+
+const ANY_FILTER_VALUE = 'any';
 
 const mapHousingTypeToMinPrice = {
   'bungalow': 0,
@@ -54,9 +57,14 @@ const VALIDATE_MESSAGE = {
   }
 };
 
+const DEBOUNCE_TIMEOUT = 500;
 
 export {
+  ALERT_SHOW_TIME,
+  ADS_PIN_PANE,
+  ANY_FILTER_VALUE,
   VALIDATE_REQUIREMENTS,
   VALIDATE_MESSAGE,
-  mapHousingTypeToMinPrice
+  mapHousingTypeToMinPrice,
+  DEBOUNCE_TIMEOUT
 };
