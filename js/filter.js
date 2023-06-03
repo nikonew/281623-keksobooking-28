@@ -17,24 +17,24 @@ const priceValueToFilterValueFilter = {
 
 let activeFeaturesValue = [];
 
-houseTypeFilter.addEventListener('change', (event) => {
-  filterAds('type', event.target.value);
+houseTypeFilter.addEventListener('change', (evt) => {
+  filterAds('type', evt.target.value);
 });
 
-housePriceFilter.addEventListener('change', (event) => {
-  filterAds('price', priceValueToFilterValueFilter[event.target.value]);
+housePriceFilter.addEventListener('change', (evt) => {
+  filterAds('price', priceValueToFilterValueFilter[evt.target.value]);
 });
 
-roomsFilter.addEventListener('change', (event) => {
-  filterAds('rooms', event.target.value);
+roomsFilter.addEventListener('change', (evt) => {
+  filterAds('rooms', evt.target.value);
 });
 
-guestsFilter.addEventListener('change', (event) => {
-  filterAds('guests', event.target.value);
+guestsFilter.addEventListener('change', (evt) => {
+  filterAds('guests', evt.target.value);
 });
 
-featureFilter.addEventListener('change', (event) => {
-  const newValue = event.target.value;
+featureFilter.addEventListener('change', (evt) => {
+  const newValue = evt.target.value;
   if (activeFeaturesValue.includes(newValue)) {
     activeFeaturesValue = activeFeaturesValue.filter((item) => item !== newValue);
   } else {
