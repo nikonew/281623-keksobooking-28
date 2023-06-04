@@ -57,6 +57,14 @@ const VALIDATE_MESSAGE = {
   }
 };
 
+const TYPES = {
+  flat: 'Квартира',
+  bungalow: 'Бунгало',
+  house: 'Дом',
+  palace: 'Дворец',
+  hotel: 'Отель',
+};
+
 const PRICE_SLIDER_OPTION = {
   start: 1000,
   connect: true,
@@ -79,5 +87,6 @@ export {
   MAP_HOUSE_TYPE_TO_MIN_PRICE,
   PRICE_SLIDER_OPTION,
   DEBOUNCE_TIMEOUT,
-  FILE_TYPES
+  FILE_TYPES,
+  TYPES
 };

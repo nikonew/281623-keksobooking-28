@@ -1,10 +1,4 @@
-const types = {
-  flat: 'Квартира',
-  bungalow: 'Бунгало',
-  house: 'Дом',
-  palace: 'Дворец',
-  hotel: 'Отель',
-};
+import { TYPES } from './data.js';
 
 const offerTemplate = document.querySelector('#card').content.querySelector('.popup');
 
@@ -13,7 +7,7 @@ export const getOffers = ({author, offer}) => {
   userOffer.querySelector('.popup__title').textContent = offer.title;
   userOffer.querySelector('.popup__text--address').textContent = offer.adress;
   userOffer.querySelector('.popup__text--price').textContent = `${ offer.price }₽/ночь`;
-  userOffer.querySelector('.popup__type').textContent = types[offer.type];
+  userOffer.querySelector('.popup__type').textContent = TYPES[offer.type];
   userOffer.querySelector('.popup__text--capacity').textContent = `${ offer.rooms } комнаты для ${ offer.guests } гостей`;
   userOffer.querySelector('.popup__text--time').textContent = `Заезд после ${ offer.checkin }, выезд до${ offer.checkout }`;
   const offerDescription = userOffer.querySelector('.popup__description');

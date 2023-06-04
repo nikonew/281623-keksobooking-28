@@ -11,6 +11,8 @@ photoChooser.addEventListener('change', () => {
     previewPhoto.innerHTML = '';
     const addNewElement = document.createElement('img');
     addNewElement.classList.add('ad-form__image');
+    addNewElement.style.maxWidth = '100%';
+    addNewElement.style.height = '100%';
     addNewElement.src = URL.createObjectURL(file);
     previewPhoto.append(addNewElement);
   }
