@@ -41,17 +41,17 @@ const pristine = new Pristine(form, {
   errorTextTag: 'div',
   errorTextClass: 'text-help'
 });
-const handlerHousingType = (evt) => {
+const getHandlerHousingType = (evt) => {
   const toMinPrice = MAP_HOUSE_TYPE_TO_MIN_PRICE[evt.target.value];
   fieldPrice.placeholder = toMinPrice;
   pristine.validate(fieldPrice);
 };
 
-const handlerCountRoomsChange = () => {
+const changeHandlerCountRooms = () => {
   pristine.validate(countGuests);
 };
 
-const handlerTimeInChange = () => {
+const changeHandlerTimeIn = () => {
   pristine.validate(selectTimeOut);
 };
 
@@ -107,9 +107,9 @@ pristine.addValidator(
   VALIDATE_MESSAGE.TIME_OUT.VALUE
 );
 
-selectHousingType.addEventListener('change', handlerHousingType);
-countRooms.addEventListener('change', handlerCountRoomsChange);
-selectTimeIn.addEventListener('change', handlerTimeInChange);
+selectHousingType.addEventListener('change', getHandlerHousingType);
+countRooms.addEventListener('change', changeHandlerCountRooms);
+selectTimeIn.addEventListener('change', changeHandlerTimeIn);
 
 const resetForm = () => {
   form.reset();

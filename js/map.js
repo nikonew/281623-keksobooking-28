@@ -27,7 +27,7 @@ const myIcon = L.icon({
 map.whenReady((ad) => {
   activateForm(ad);
 });
-const handlerDrag = (event) => {
+const getHandlerDrag = (event) => {
   adressIn.value = `${ event.latlng.lat.toFixed(3) }, ${ event.latlng.lng.toFixed(3) }`;
 };
 
@@ -35,7 +35,7 @@ const marker = L.marker(
   defaultView.center,
   {icon: myIcon, draggable: true, autoPan: true, autoPanPadding: L.point(100, 100)}
 )
-  .on('drag', handlerDrag);
+  .on('drag', getHandlerDrag);
 
 const iconOfferPin = L.icon({
   iconUrl: '/img/pin.svg',
@@ -54,13 +54,13 @@ const activeFilters = {
   type: ANY_FILTER_VALUE,
 };
 
-const renderAdsOfferPins = (item) => {
+export const renderAdsOfferPins = (item) => {
   const pins = item.map((ad) => L.marker(ad.location, {icon: iconOfferPin, pane: ADS_PIN_PANE})
     .bindPopup(getOffers(ad)));
   pins.forEach((pin) => pin.addTo(map));
 };
 
-export const initAds = (newAds) => {
+export const getInitAds = (newAds) => {
   ads = newAds;
   renderAdsOfferPins(ads.slice(0, 10));
 };
@@ -69,7 +69,7 @@ export const hidePopup = () => {
   map.closePopup();
 };
 
-const rerenderPinsAds = debounce(() => {
+export const rerenderPinsAds = debounce(() => {
   hidePopup();
   const oldPins = map.getPane(ADS_PIN_PANE).querySelectorAll('.leaflet-marker-icon');
   oldPins.forEach((item) => item.remove());
@@ -113,7 +113,7 @@ export const setDefaultCenter = () => {
   marker.setLatLng(defaultView.center);
 };
 
-export const initMap = () => {
+export const getInitMap = () => {
   setDefaultCenter();
   tiles.addTo(map);
   marker.addTo(map);
